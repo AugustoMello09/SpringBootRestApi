@@ -61,6 +61,13 @@
 			<artifactId>flyway-mysql</artifactId>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/jakarta.annotation/ca-parent -->
+		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>ca-parent</artifactId>
+			<version>2.0.0-RC1</version>
+			<type>pom</type>
+		</dependency>
 	</dependencies>
 
 	<build>
