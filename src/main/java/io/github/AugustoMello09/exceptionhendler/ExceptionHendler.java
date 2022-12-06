@@ -13,18 +13,21 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import io.github.AugustoMello09.exception.NegocioException;
+
 @ControllerAdvice
-public class ExceptionXHendler extends ResponseEntityExceptionHandler {
+public class ExceptionHendler extends ResponseEntityExceptionHandler {
 	
 	
 	private MessageSource messageSource;
 	
 	
 	
-	public ExceptionXHendler(MessageSource messageSource) {
+	public ExceptionHendler(MessageSource messageSource) {
 		super();
 		this.messageSource = messageSource;
 	}
@@ -52,4 +55,20 @@ public class ExceptionXHendler extends ResponseEntityExceptionHandler {
 
 		return handleExceptionInternal(ex, ex, headers, status, request);
 	}
+	
+	@ExceptionHandler(NegocioException.class)
+	public ResponseEntity<Object> handleNegocio(NegocioException ex, WebRequest request){
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		
+		
+		Problema problema = new Problema();
+		problema.setStatus(status.value());
+		problema.setDataHora(LocalDateTime.now());
+		problema.setTitulo(ex.getMessage());
+
+		
+		
+		return handleExceptionInternal(ex, problema, new HttpHeaders(), status, request);
+	}
+
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.AugustoMello09.model.Cliente;
 import io.github.AugustoMello09.repository.ClienteRepository;
+import io.github.AugustoMello09.service.CatalagoClienteService;
 
 @RestController
 @RequestMapping("/clientes")
@@ -27,6 +28,9 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private CatalagoClienteService catalagoClienteService;
 
 	@GetMapping
 	public List<Cliente> listar() {
@@ -55,7 +59,7 @@ public class ClienteController {
 			return ResponseEntity.notFound().build(); 
 		}
 		cliente.setId(clienteId);
-		cliente = clienteRepository.save(cliente);
+		cliente = catalagoClienteService.salvar(cliente);
 		
 		return ResponseEntity.ok(cliente);
 	}
@@ -65,7 +69,7 @@ public class ClienteController {
 		if(!clienteRepository.existsById(clienteId)) {
 			return ResponseEntity.notFound().build(); 
 		}
-		clienteRepository.deleteById(clienteId);
+		catalagoClienteService.deletar(clienteId);
 		
 		return ResponseEntity.noContent().build();
 	}
