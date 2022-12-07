@@ -33,5 +33,9 @@ public class CatalagoClienteService {
 	  clienteRepository.deleteById(clienteId);
 	}
 
-	
+	@Transactional
+	public Cliente buscar(Long clienteId) {
+		return clienteRepository.findById(clienteId)
+				.orElseThrow(() -> new NegocioException("Cliente não encontrado"));
+	}
 }
