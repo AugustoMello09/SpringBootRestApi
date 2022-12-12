@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -20,12 +21,15 @@ import io.github.AugustoMello09.dto.EntregaDTO;
 import io.github.AugustoMello09.model.Entrega;
 import io.github.AugustoMello09.model.input.EntregaInput;
 import io.github.AugustoMello09.repository.EntregaRepository;
+import io.github.AugustoMello09.service.FinalizacaoEntregaService;
 import io.github.AugustoMello09.service.SolicitacaoEntregaService;
 
 @RestController
 @RequestMapping("/entregas")
 public class EntregaController {
-
+	@Autowired
+	private FinalizacaoEntregaService finalizacaoEntregaService;
+	
 	@Autowired
 	private EntregaAssembler assembler;
 
@@ -43,7 +47,13 @@ public class EntregaController {
 
 		return assembler.toModel(entregaSolicitada);
 	}
-
+	
+	@PutMapping("/{entregaId}/finalizacao")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void finalizar(@PathVariable Long entregaId) {
+		finalizacaoEntregaService.finalizar(entregaId);
+	}
+	
 	@GetMapping
 	public List<EntregaDTO> listar() {
 		return assembler.toCollectionModel(entregaRepository.findAll());

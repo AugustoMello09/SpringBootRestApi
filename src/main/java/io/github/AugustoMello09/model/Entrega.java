@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import io.github.AugustoMello09.exception.NegocioException;
 import io.github.AugustoMello09.model.enums.StatusEntrega;
 
 @Entity
@@ -152,6 +153,23 @@ public class Entrega {
 		this.getOcorrencias().add(ocorrencia);
 		
 		return ocorrencia;
+	}
+
+	public void finalizar() {
+		if(!StatusEntrega.PENDENTE.equals(getStatus())) {
+			throw new NegocioException("Entrega não pode ser finalizada");
+		}
+		
+		setStatus(StatusEntrega.FINALIZADA);
+		setDataFinalizacao(OffsetDateTime.now());
+	}
+	
+	public boolean podeSerFinalizada() {
+		return StatusEntrega.PENDENTE.equals(getStatus());
+	}
+
+	public boolean naoPodeSerFinalizada() {
+		return !podeSerFinalizada();
 	}
 
 }
