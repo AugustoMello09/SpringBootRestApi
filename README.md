@@ -1,6 +1,6 @@
 # Spring Boot Rest API
 
-Um pequeno estudo de caso no boot camp Mergulho Spring REST - AlgaWorksutilizando spring framework
+Um pequeno estudo de caso no boot camp Mergulho Spring REST - AlgaWorks utilizando spring framework
 
 ![aaaaaaa](https://user-images.githubusercontent.com/101072311/207079787-34f665ad-c4c7-4f4a-9882-560c7e6fc842.png)
 
