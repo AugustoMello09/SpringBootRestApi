@@ -12,52 +12,35 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.groups.ConvertGroup;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 import io.github.AugustoMello09.model.enums.StatusEntrega;
-import io.github.AugustoMello09.model.utils.ValidationGroups;
 
 @Entity
 public class Entrega {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Valid
-	@ConvertGroup(from = Default.class, to = ValidationGroups.ClienteId.class)
-	@NotNull
+
 	@ManyToOne
 	private Cliente cliente;
-	
-	@Valid
-	@NotNull
+
 	@Embedded
 	private Destinatario destinatario;
-	
-	@NotNull
+
 	private BigDecimal taxa;
-	
-	@JsonProperty(access = Access.READ_ONLY)
+
 	@Enumerated(EnumType.STRING)
 	private StatusEntrega status;
 
-	@JsonProperty(access = Access.READ_ONLY)
 	private OffsetDateTime dataPedido;
 
-	@JsonProperty(access = Access.READ_ONLY)
 	private OffsetDateTime dataFinalizacao;
 
 	public Entrega() {
-		
+
 	}
-	
+
 	public Entrega(Long id, Cliente cliente, Destinatario destinatario, BigDecimal taxa, StatusEntrega status,
 			OffsetDateTime dataPedido, OffsetDateTime dataFinalizacao) {
 		super();
@@ -69,8 +52,6 @@ public class Entrega {
 		this.dataPedido = dataPedido;
 		this.dataFinalizacao = dataFinalizacao;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -144,6 +125,5 @@ public class Entrega {
 		Entrega other = (Entrega) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
 }

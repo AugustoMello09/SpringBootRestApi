@@ -8,7 +8,7 @@ import io.github.AugustoMello09.model.enums.StatusEntrega;
 public class EntregaDTO {
 	
 	private Long id;
-	private String nomeCliente;
+	private ClienteResumoModel cliente;
 	private DestinatarioDTO destinatario;
 	private BigDecimal taxa;
 	private StatusEntrega status;
@@ -20,12 +20,6 @@ public class EntregaDTO {
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public String getNomeCliente() {
-		return nomeCliente;
-	}
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
 	}
 	public DestinatarioDTO getDestinatario() {
 		return destinatario;
@@ -56,6 +50,12 @@ public class EntregaDTO {
 	}
 	public void setDataFinalizacao(OffsetDateTime dataFinalizacao) {
 		this.dataFinalizacao = dataFinalizacao;
+	}
+	public ClienteResumoModel getCliente() {
+		return cliente;
+	}
+	public void setCliente(ClienteResumoModel cliente) {
+		this.cliente = cliente;
 	}
 
 
